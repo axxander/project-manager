@@ -1,4 +1,13 @@
 terraform {
+
+  backend "remote" {
+    hostname = "app.terraform.io"
+    organization = "alexgregory"
+
+    workspaces {
+      name = "project-manager"
+    }
+  }
   required_providers {
     google = {
       source  = "hashicorp/google"
