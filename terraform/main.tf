@@ -1,25 +1,29 @@
-terraform {
-
-  backend "remote" {
-    hostname = "app.terraform.io"
-    organization = "alexgregory"
-
-    workspaces {
-      name = "project-manager"
-    }
-  }
-  required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = "4.38.0"
-    }
-  }
-
-  required_version = ">= 1.2.0"
+locals {
+  billing_account_id = "010907-178175-E19375"
 }
 
-resource "google_project" "my_project" {
-  name = "my-project-with-tf"
-  project_id = "alexgregory-created-with-tf"
+module "alexgregoryio-dev" {
+  source = "./modules/project"
+
+  project_name    = "alexgregoryio-dev"
+  project_id      = "alexgregoryio-dev"
+  billing_account = local.billing_account_id
+  env             = "dev"
+  
+  apis = [
+    "storage"
+  ]
 }
 
+module "alexgregoryio-prod" {
+  source = "./modules/project"
+
+  project_name    = "alexgregoryio-prod"
+  project_id      = "alexgregoryio-prod"
+  billing_account = local.billing_account_id
+  env             = "prod"
+  
+  apis = [
+    "storage"
+  ]
+}
