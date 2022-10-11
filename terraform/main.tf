@@ -11,6 +11,7 @@ module "alexgregoryio-dev" {
   env             = "dev"
   
   apis = [
+    "cloudbilling",
     "storage"
   ]
 }
@@ -24,6 +25,7 @@ module "alexgregoryio-prod" {
   env             = "prod"
   
   apis = [
+    "cloudbilling",
     "storage"
   ]
 }
